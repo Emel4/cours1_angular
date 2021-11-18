@@ -1,0 +1,64 @@
+
+<div class="row">
+  <div *ngIf="quantite!==0" class="col-md-4">
+    <p>Le tableau du panier</p>
+    <table class="table table-dark table-striped">
+      <thead >
+        <tr>
+          <th scope="col" class="text-center">photo</th>
+          <th scope="col" class="text-center">nom</th>
+          <th scope="col" class="text-center">contenance</th>
+          <th scope="col" class="text-center">prix</th>
+          <th scope="col" class="text-center">quantité</th>
+          <th scope="col" class="text-center">retirer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produit of panier">
+          <td class="text-center"><img width="40" heigth="40" src="{{ produit.photo }}" alt="photo"></td>
+          <td class="text-center">{{ produit.nom }}</td>
+          <td class="text-center">{{ produit.contenance }} ML</td>
+          <td class="text-center">{{ produit.prix | currency: 'EUR' }} €</td>
+          <td class="text-center">{{ produit.quantite }}</td>
+          <td class="text-center"><button (click)="retirerPanier(produit.nom)" class="btn btn-danger">X</button></td>
+        </tr>
+
+
+
+
+      </tbody>
+    </table>
+    <p class="text-end">Total: {{ quantite }} articles <strong>{{ total() | currency: 'EUR' }}</strong></p>
+  </div>
+
+
+
+  <div [class.col]="quantite==0" [class.col-md-8]="quantite!==0"> <!-- [class.col] prend toutes les colonnes par défaut -->
+    <div class="row justify-content-around">
+
+      <div *ngFor="let produit of produits"class="card col-md-3" style="width: 18rem;">
+          <div class="card-header bg-dark text-white text-center">
+            <h4>{{ produit.marque }}</h4>
+          </div>
+          <img src="{{ produit.photo }}" class="card-img-top" alt="{{ produit.nom }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ produit.nom }}</h5>
+          </div>
+          <div>
+            <h5>{{ produit.prix }} €</h5>
+          </div>
+        <app-detail  [contenance]="produit.contenance" [description]="produit.description" ></app-detail>
+            <a href="#" (click)="ajoutPanier(produit, produit.nom)" class="btn btn-primary">Ajouter au panier</a>
+      </div>
+
+  </div>
+
+
+  </div>
+</div>
+
+
+
+
+
+
